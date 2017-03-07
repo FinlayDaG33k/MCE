@@ -1,6 +1,7 @@
 <?php
 if (!empty($_FILES)){
 	$mcz = json_decode(base64_decode(file_get_contents($_FILES['mcz']['tmp_name'])),1);
+	echo json_encode($mcz['buildings']);
 }else{
 
 ?>
