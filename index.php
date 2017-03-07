@@ -1,7 +1,8 @@
 <?php
 function update($data){
+	echo count($data);
 	for($i = 0;$i <= count($data);$i++){
-		$data['buildings'][$i]['isUnderConstruction'] = 0;
+		$data['buildings'][$i]['isUnderConstruction'] = false;
 		$data['buildings'][$i]['constructionCounter'] = 0;
 		$data['buildings'][$i]['constructionPercentage'] = 0;
 		$data['buildings'][$i]['constructionProgress'] = null;
@@ -15,7 +16,7 @@ function update($data){
 
 if (!empty($_FILES)){
 	$mcz = json_decode(base64_decode(file_get_contents($_FILES['mcz']['tmp_name'])),1);
-	echo base64_encode(json_encode(update($mcz)));
+	echo json_encode(update($mcz));
 }else{
 
 ?>
