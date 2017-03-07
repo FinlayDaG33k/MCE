@@ -1,4 +1,12 @@
 <?php
+function update($data){
+	for($i = 0;$i <= count($data);$i++){
+		$data['buildings'][$i]['isUnderConstruction'] = 0;
+	}
+
+	return $data;
+}
+
 if (!empty($_FILES)){
 	$mcz = json_decode(base64_decode(file_get_contents($_FILES['mcz']['tmp_name'])),1);
 	echo json_encode($mcz['buildings']);
