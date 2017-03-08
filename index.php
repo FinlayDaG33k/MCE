@@ -1,5 +1,5 @@
 <?php
-function update($data){
+function finishBuildings($data){
 	for($i = 0;$i < count($data['buildings']);$i++){
 		$data['buildings'][$i]['isUnderConstruction'] = 0;
 		$data['buildings'][$i]['constructionCounter'] = 0;
@@ -14,11 +14,15 @@ function update($data){
 	return $data;
 }
 
+function setMoney($data){
+	$data['resources']['Money']['amount'] = 9999999999;
+	return $data;
+}
 
 if (!empty($_FILES)){
 	$mcz = json_decode(base64_decode(file_get_contents($_FILES['mcz']['tmp_name'])),1);
-	echo json_encode($mcz['resources']['Money']);
-	//echo base64_encode(json_encode(update($mcz)));
+	echo json_encode(setMoney($mcz));
+	//echo base64_encode(json_encode(finishBuildings($mcz)));
 }else{
 
 ?>
