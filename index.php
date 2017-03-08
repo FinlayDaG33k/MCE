@@ -110,14 +110,31 @@ if (!empty($_FILES)){
 		$mcz = finishBuildings($mcz);
 	}
 
-	$mcz = setMoney($mcz,$_POST['money']);
-	$mcz = setOre($mcz,$_POST['ore']);
-	$mcz = setGold($mcz,$_POST['gold']);
-	$mcz = setCivics($mcz,$_POST['civics']);
-	$mcz = setMicrochip($mcz,$_POST['microchip']);
-	$mcz = setAtmosphere($mcz,$_POST['atmosphere']);
-	$mcz = setAluminum($mcz,$_POST['aluminum']);
-	$mcz = setUranium($mcz,$_POST['uranium']);
+	if($mcz['resources']['Money']['unlocked']){
+		$mcz = setMoney($mcz,$_POST['money']);
+	}
+	if($mcz['resources']['Ore']['unlocked']){
+		$mcz = setOre($mcz,$_POST['ore']);
+	}
+	if($mcz['resources']['Gold']['unlocked']){
+		$mcz = setGold($mcz,$_POST['gold']);
+	}
+	if($mcz['resources']['Civics']['unlocked']){
+		$mcz = setCivics($mcz,$_POST['civics']);
+	}
+	if($mcz['resources']['Microchip']['unlocked']){
+		$mcz = setMicrochip($mcz,$_POST['microchip']);
+	}
+	if($mcz['resources']['Atmosphere']['unlocked']){
+		$mcz = setAtmosphere($mcz,$_POST['atmosphere']);
+	}
+	if($mcz['resources']['Aluminum']['unlocked']){
+		$mcz = setAluminum($mcz,$_POST['aluminum']);
+	}
+	if($mcz['resources']['Uranium']['unlocked']){
+		$mcz = setUranium($mcz,$_POST['uranium']);
+	}
+
 	echo base64_encode(json_encode($mcz));
 }else{
 
