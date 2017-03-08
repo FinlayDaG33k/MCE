@@ -103,6 +103,13 @@ function setUranium($data,$total){
 	return $data;
 }
 
+function maxColonyHappiness($data){
+	for($i = 0;$i < count($data['colonists']);$i++){
+		$data['colonists'][$i]['happiness'] = 100;
+	}
+	return $data;
+}
+
 if (!empty($_FILES)){
 	$mcz = json_decode(base64_decode(file_get_contents($_FILES['mcz']['tmp_name'])),1);
 	if($_POST['finishbuildings']){
@@ -133,6 +140,10 @@ if (!empty($_FILES)){
 
 	if($_POST['topup']){
 		$mcz = topUp($mcz);
+	}
+
+	if($_POST['maxcolhappiness']){
+		$mcz = maxColonyHappiness($mcz);
 	}
 
 	//echo json_encode($mcz);
