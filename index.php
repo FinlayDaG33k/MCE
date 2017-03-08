@@ -14,18 +14,18 @@ function finishBuildings($data){
 	return $data;
 }
 
-function setMoney($data){
-	$data['resources']['Money']['amount'] = 9999999999;
-	$total_goldmint = 9999999999 + $data['resources']['Money']['inflows']['total']['Gold Mint'];
+function setMoney($data,$total){
+	$data['resources']['Money']['amount'] = $total;
+	$total_goldmint = $total + $data['resources']['Money']['inflows']['total']['Gold Mint'];
 	$data['resources']['Money']['inflows']['total']['Gold Mint'] = $total_goldmint;
-	$data['resources']['Money']['inflows']['allCurrent'] = $data['resources']['Money']['inflows']['allCurrent'] + 9999999999;
-	$data['resources']['Money']['inflows']['allTime'] = $data['resources']['Money']['inflows']['allTime'] + 9999999999;
+	$data['resources']['Money']['inflows']['allCurrent'] = $data['resources']['Money']['inflows']['allCurrent'] + $total;
+	$data['resources']['Money']['inflows']['allTime'] = $data['resources']['Money']['inflows']['allTime'] + $total;
 	return $data;
 }
 
 if (!empty($_FILES)){
 	$mcz = json_decode(base64_decode(file_get_contents($_FILES['mcz']['tmp_name'])),1);
-	echo json_encode(setMoney($mcz));
+	echo json_encode(setMoney($mcz,$_POST['money']));
 	//echo base64_encode(json_encode(finishBuildings($mcz)));
 }else{
 
