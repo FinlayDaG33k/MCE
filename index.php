@@ -15,23 +15,23 @@ function finishBuildings($data){
 }
 
 function setMoney($data,$total){
-	$data['resources']['Money']['amount'] = $total;
-	$total_goldmint = $total + $data['resources']['Money']['inflows']['total']['Gold Mint'];
-	$data['resources']['Money']['inflows']['total']['Gold Mint'] = $total_goldmint;
-	$data['resources']['Money']['inflows']['allCurrent'] = $data['resources']['Money']['inflows']['allCurrent'] + $total;
-	$data['resources']['Money']['inflows']['allTime'] = $data['resources']['Money']['inflows']['allTime'] + $total;
+	$data['resources']['Money']['amount'] = intval($total);
+	$data['resources']['Money']['previous'] = intval($total);
+	$total_goldmint = intval ($total + $data['resources']['Money']['inflows']['total']['Gold Mint']);
+	$data['resources']['Money']['inflows']['total']['Gold Mint'] = intval ($total_goldmint);
+	$data['resources']['Money']['inflows']['allCurrent'] = intval($data['resources']['Money']['inflows']['allCurrent'] + $total);
+	$data['resources']['Money']['inflows']['allTime'] = intval ($data['resources']['Money']['inflows']['allTime'] + $total);
 	return $data;
 }
 
 if (!empty($_FILES)){
 	$mcz = json_decode(base64_decode(file_get_contents($_FILES['mcz']['tmp_name'])),1);
-	//echo json_encode(setMoney($mcz,$_POST['money']));
 	if($_POST['finishbuildings']){
 		$mcz = finishBuildings($mcz);
 	}
-	if($_POST['money'] > $mcz['resources']['Money']['amount']){
-		$mcz = setMoney($mcz,$_POST['money']);
-	}
+
+	$mcz = setMoney($mcz,$_POST['money']);
+	
 	echo base64_encode(json_encode($mcz));
 }else{
 
