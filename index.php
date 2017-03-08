@@ -14,6 +14,15 @@ function finishBuildings($data){
 	return $data;
 }
 
+function topUp($data){
+	foreach($data['resources'] as $resource => $value){
+		if($data['resources'][$resource]['unlocked'] && $data['resources'][$resource]['storageCapacity'] > 0){
+			$data['resources'][$resource]['amount'] = $data['resources'][$resource]['storageCapacity'];
+		}
+	}
+	return $data;
+}
+
 function setMoney($data,$total){
 	$data['resources']['Money']['amount'] = intval($total);
 	$data['resources']['Money']['previous'] = intval($total);
@@ -51,16 +60,6 @@ function setCivics($data,$total){
 	$data['resources']['Civics']['inflows']['total']['Civic Center'] = intval ($total_earned);
 	$data['resources']['Civics']['inflows']['allCurrent'] = intval($data['resources']['Civics']['inflows']['allCurrent'] + $total);
 	$data['resources']['Civics']['inflows']['allTime'] = intval ($data['resources']['Civics']['inflows']['allTime'] + $total);
-	return $data;
-}
-
-function setMicrochip($data,$total){
-	$data['resources']['Microchip']['amount'] = intval($total);
-	$data['resources']['Microchip']['previous'] = intval($total);
-	$total_earned = intval ($total + $data['resources']['Money']['inflows']['total']['Microchip Factory']);
-	$data['resources']['Microchip']['inflows']['total']['Microchip Factory'] = intval ($total_earned);
-	$data['resources']['Microchip']['inflows']['allCurrent'] = intval($data['resources']['Microchip']['inflows']['allCurrent'] + $total);
-	$data['resources']['Microchip']['inflows']['allTime'] = intval ($data['resources']['Microchip']['inflows']['allTime'] + $total);
 	return $data;
 }
 
@@ -122,9 +121,6 @@ if (!empty($_FILES)){
 	if($mcz['resources']['Civics']['unlocked']){
 		$mcz = setCivics($mcz,$_POST['civics']);
 	}
-	if($mcz['resources']['Microchip']['unlocked']){
-		$mcz = setMicrochip($mcz,$_POST['microchip']);
-	}
 	if($mcz['resources']['Atmosphere']['unlocked']){
 		$mcz = setAtmosphere($mcz,$_POST['atmosphere']);
 	}
@@ -135,6 +131,11 @@ if (!empty($_FILES)){
 		$mcz = setUranium($mcz,$_POST['uranium']);
 	}
 
+	if($_POST['topup']){
+		$mcz = topUp($mcz);
+	}
+
+	//echo json_encode($mcz);
 	echo base64_encode(json_encode($mcz));
 }else{
 
