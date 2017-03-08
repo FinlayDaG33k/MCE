@@ -152,6 +152,7 @@ if (!empty($_FILES)){
 		Uranium: <input type="text" name="uranium" value="100000"><br>
 		<input type="checkbox" name="finishbuildings" value="finishbuildings"> Finish all my buildings<br>
 		<input type="checkbox" name="topup" value="topup"> Top up all storable resources<br>
+		<input type="checkbox" name="unban" value="unban"> Unban world (Charter will be lost!)<br>
     <input type="submit" value="Send File" />
 </form>
 <?php } ?>
