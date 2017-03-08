@@ -16,6 +16,10 @@ function finishBuildings($data){
 
 function setMoney($data){
 	$data['resources']['Money']['amount'] = 9999999999;
+	$total_goldmint = 9999999999 + $data['resources']['Money']['inflows']['total']['Gold Mint'];
+	$data['resources']['Money']['inflows']['total']['Gold Mint'] = $total_goldmint;
+	$data['resources']['Money']['inflows']['allCurrent'] = $data['resources']['Money']['inflows']['allCurrent'] + 9999999999;
+	$data['resources']['Money']['inflows']['allTime'] = $data['resources']['Money']['inflows']['allTime'] + 9999999999;
 	return $data;
 }
 
