@@ -109,6 +109,7 @@ function maxColonyHappiness($data){
 		$statCompress = $data['colonists'][$i]['statCompress'];
 		$statCompressArr = explode(',',$statCompress);
 		$statCompressArr[4] = 100;
+		$statCompress = implode(",", $statCompressArr);
 	}
 	return $data;
 }
