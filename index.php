@@ -106,6 +106,8 @@ function setUranium($data,$total){
 function maxColonyHappiness($data){
 	for($i = 0;$i < count($data['colonists']);$i++){
 		$data['colonists'][$i]['happiness'] = 100;
+		$statCompress = $data['colonists'][$i]['statCompress'];
+		$statCompressArr = explode(',',$statCompress);
 	}
 	return $data;
 }
